@@ -1,10 +1,15 @@
 :root {
     /* Color Palette */
-    --primary-color: #006d77; /* Deep Teal - Trustworthy & Medical */
-    --primary-light: #83c5be; /* Soft Teal */
-    --accent-color: #edf6f9; /* Very Light Blue/Gray Background */
-    --text-dark: #2b2d42; /* Dark Gray for headings */
-    --text-medium: #5d6b75; /* Medium Gray for body */
+    --primary-color: #006d77;
+    /* Deep Teal - Trustworthy & Medical */
+    --primary-light: #83c5be;
+    /* Soft Teal */
+    --accent-color: #edf6f9;
+    /* Very Light Blue/Gray Background */
+    --text-dark: #2b2d42;
+    /* Dark Gray for headings */
+    --text-medium: #5d6b75;
+    /* Medium Gray for body */
     --white: #ffffff;
     --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.05);
     --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.08);
@@ -34,7 +39,8 @@ body {
 
 .container {
     width: 100%;
-    max-width: 480px; /* Mobile-first constraint like Linktree */
+    max-width: 480px;
+    /* Mobile-first constraint like Linktree */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -171,6 +177,37 @@ body {
     transform: translateX(4px);
 }
 
+/* Info Section (SEO & Content) */
+.info-section {
+    background: var(--white);
+    padding: 1.5rem;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    margin-top: 1.5rem;
+    text-align: left;
+    font-size: 0.9rem;
+    color: var(--text-medium);
+}
+
+.info-section h2 {
+    font-size: 1.1rem;
+    color: var(--primary-color);
+    margin-bottom: 0.75rem;
+}
+
+.info-section p {
+    margin-bottom: 0.75rem;
+}
+
+.info-section ul {
+    list-style-position: inside;
+    margin-bottom: 0.75rem;
+}
+
+.info-section ul li {
+    margin-bottom: 0.25rem;
+}
+
 /* Social Row */
 .social-row {
     display: flex;
@@ -210,20 +247,44 @@ body {
 
 /* Animations */
 @keyframes fadeInDown {
-    from { opacity: 0; transform: translateY(-20px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 @keyframes fadeInUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* Responsive */
 @media (max-width: 380px) {
-    .profile-name { font-size: 1.25rem; }
-    .link-card { padding: 0.875rem 1rem; }
-    .icon-box { width: 36px; height: 36px; font-size: 1.1rem; }
+    .profile-name {
+        font-size: 1.25rem;
+    }
+
+    .link-card {
+        padding: 0.875rem 1rem;
+    }
+
+    .icon-box {
+        width: 36px;
+        height: 36px;
+        font-size: 1.1rem;
+    }
 }
 
 /* Google favicon icon sizing */
