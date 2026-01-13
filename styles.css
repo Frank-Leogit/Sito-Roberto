@@ -225,3 +225,10 @@ body {
     .link-card { padding: 0.875rem 1rem; }
     .icon-box { width: 36px; height: 36px; font-size: 1.1rem; }
 }
+
+/* Google favicon icon sizing */
+.google-icon {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+}
