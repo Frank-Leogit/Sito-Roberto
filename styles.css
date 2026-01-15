@@ -213,6 +213,8 @@ body {
     font-size: 0.9rem;
     color: var(--text-medium);
     transition: var(--transition);
+    width: 100%;
+    /* Ensure it spans the full container width */
 }
 
 .info-section summary {
@@ -223,11 +225,14 @@ body {
     list-style: none;
     /* Remove default arrow */
     padding-bottom: 0.25rem;
+    outline: none;
 }
 
-.info-section summary::-webkit-details-marker {
+.info-section summary::-webkit-details-marker,
+.info-section summary::marker {
     display: none;
-    /* Remove default arrow in WebKit */
+    /* Force remove default arrow */
+    content: "";
 }
 
 .info-section h2 {
