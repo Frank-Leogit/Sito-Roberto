@@ -53,10 +53,33 @@ body {
     animation: fadeInDown 0.8s ease-out;
 }
 
+.profile-visuals {
+    position: relative;
+    width: fit-content;
+    margin: 0 auto 1rem;
+}
+
+.branding-logo {
+    position: absolute;
+    right: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 100px;
+    width: auto;
+    margin-right: 2rem;
+    filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.05));
+    transition: var(--transition);
+}
+
+.branding-logo:hover {
+    transform: translateY(-50%) scale(1.05);
+}
+
+
 .profile-image-container {
     width: 120px;
     height: 120px;
-    margin: 0 auto 1rem;
+    margin: 0;
     padding: 4px;
     background: var(--white);
     border-radius: 50%;
