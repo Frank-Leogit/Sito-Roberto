@@ -212,12 +212,57 @@ body {
     /* Centered text */
     font-size: 0.9rem;
     color: var(--text-medium);
+    transition: var(--transition);
+}
+
+.info-section summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    list-style: none;
+    /* Remove default arrow */
+    padding-bottom: 0.25rem;
+}
+
+.info-section summary::-webkit-details-marker {
+    display: none;
+    /* Remove default arrow in WebKit */
 }
 
 .info-section h2 {
     font-size: 1.1rem;
     color: var(--primary-color);
-    margin-bottom: 0.75rem;
+    margin-bottom: 0;
+    font-weight: 600;
+}
+
+.info-section .arrow-icon {
+    font-size: 1.2rem;
+    color: var(--primary-color);
+    transition: transform 0.3s ease;
+}
+
+details[open] .arrow-icon {
+    transform: rotate(180deg);
+}
+
+.details-content {
+    margin-top: 1rem;
+    animation: fadeIn 0.4s ease-out;
+}
+
+/* Simple fadeIn animation for details content */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .info-section p {
