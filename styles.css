@@ -488,3 +488,75 @@ details:last-child {
     height: 20px;
     object-fit: contain;
 }
+
+/* WhatsApp Group Accordion */
+.whatsapp-group {
+    width: 100%;
+    margin-bottom: 20px;
+    border-radius: var(--radius-lg);
+    background: var(--white);
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
+    overflow: hidden;
+}
+
+.whatsapp-group[open] {
+    box-shadow: var(--shadow-hover);
+}
+
+.whatsapp-group summary.link-card {
+    margin-bottom: 0;
+    border-radius: var(--radius-lg);
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    list-style: none;
+    /* Ensure no default marker */
+}
+
+.whatsapp-group:not([open]) summary.link-card {
+    border-radius: var(--radius-lg);
+    /* Rounded when closed */
+}
+
+.whatsapp-group summary::-webkit-details-marker {
+    display: none;
+}
+
+/* Rotate arrow when open */
+.whatsapp-group[open] summary .arrow-box {
+    transform: rotate(90deg);
+}
+
+.whatsapp-options {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem 1rem 1rem;
+    /* animation: fadeIn 0.4s ease-out; */
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+/* Sub-links style */
+.link-card.sub-link {
+    padding: 0.75rem 1rem;
+    font-size: 0.95rem;
+    border: 1px solid rgba(0, 109, 119, 0.1);
+    background: #f8fcfc;
+    /* Slightly different background */
+    box-shadow: none;
+}
+
+.link-card.sub-link .icon-box {
+    width: 32px;
+    height: 32px;
+    font-size: 1.1rem;
+    background: transparent;
+    color: var(--primary-color);
+    margin-right: 0.75rem;
+}
+
+.link-card.sub-link:hover {
+    border-color: var(--primary-color);
+    background: var(--white);
+    transform: translateX(4px);
+}
