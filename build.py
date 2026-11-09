@@ -13,7 +13,7 @@ import json
 import sys
 from pathlib import Path
 
-from jinja2 import Environment, FileSystemLoader, StrictUndefined
+from jinja2 import ChainableUndefined, Environment, FileSystemLoader
 from PIL import Image
 
 ROOT = Path(__file__).resolve().parent
@@ -57,7 +57,7 @@ def cleanup_opt() -> None:
 
 def rich(text: str) -> str:
     """Testo formattato: accetta sia HTML sia Markdown (dipende dall'editor)."""
-    text = (text or "").strip()
+    text = str(text or "").strip()
     if not text or text.startswith("<"):
         return text
     import markdown
@@ -65,24 +65,27 @@ def rich(text: str) -> str:
 
 
 def build_jsonld(c: dict) -> str:
+    profilo, contatti = c.get("profilo", {}), c.get("contatti", {})
+    studio = c.get("studio", {})
     data = {
         "@context": "https://schema.org",
         "@type": "Physician",
-        "name": c["profilo"]["nome"].replace("Dott. ", ""),
-        "image": SITE_URL + "/" + c["profilo"]["foto"].lstrip("/"),
-        "logo": SITE_URL + "/" + c["profilo"]["logo"].lstrip("/"),
-        "description": c["seo"]["descrizione_scheda_medico"],
+        "name": profilo.get("nome", "").replace("Dott. ", ""),
+        "image": SITE_URL + "/" + profilo.get("foto", "").lstrip("/"),
+        "logo": SITE_URL + "/" + profilo.get("logo", "").lstrip("/"),
+        "description": c.get("seo", {}).get("descrizione_scheda_medico", ""),
         "url": SITE_URL + "/",
-        "telephone": c["contatti"]["telefono"],
-        "email": c["contatti"]["email"],
+        "telephone": contatti.get("telefono", ""),
+        "email": contatti.get("email", ""),
         "medicalSpecialty": "Endocrinology",
         "priceRange": "€€",
         "address": {"@type": "PostalAddress", "addressCountry": "IT"},
-        "sameAs": [u for u in c["social"].values() if u],
+        "sameAs": [u for u in c.get("social", {}).values() if u],
     }
-    if c["studio"]["visibile"] and c["studio"]["indirizzo"]:
-        data["address"].update(streetAddress=c["studio"]["indirizzo"],
-                               addressLocality=c["studio"]["citta"])
+    if studio.get("visibile") and studio.get("indirizzo"):
+        data["address"].update(streetAddress=studio["indirizzo"],
+                               addressLocality=studio.get("citta", ""))
+    data = {k: v for k, v in data.items() if v}
     # "</" non deve mai comparire dentro <script>
     return json.dumps(data, ensure_ascii=False, indent=2).replace("</", "<\\/")
 
@@ -92,7 +95,8 @@ def main() -> None:
     today = dt.date.today()
 
     env = Environment(loader=FileSystemLoader(ROOT), autoescape=True,
-                      undefined=StrictUndefined, trim_blocks=False)
+                      undefined=ChainableUndefined,  # Pages CMS elimina i campi vuoti
+                      trim_blocks=False)
     env.globals["img"] = img
     env.filters["rich"] = rich
     html = env.get_template("template.html").render(
