@@ -94,6 +94,9 @@
       "url": "https://www.google.com/search?hl=it&q=Dr.+Roberto+Palazzolo+-+Medico+Chirurgo+-+Medico+in+formazione+specialistica+in+Endocrinologia+e+Malattie+del+Metabolismo+Recensioni",
       "icona": "google",
       "suggerimento": "Leggi le recensioni su Google"
+    },
+    {
+      "visibile": false
     }
   ],
   "social": {
