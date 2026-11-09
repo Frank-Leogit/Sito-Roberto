@@ -508,10 +508,12 @@ summary:focus-visible {
     }
 }
 
-/* WhatsApp Group Accordion */
-.whatsapp-group {
+/* Card a tendina (Prenota su WhatsApp, Pubblicazioni, Sedi) */
+.card-group {
     width: 100%;
-    margin-bottom: 20px;
+    margin: 0;
+    padding: 0;
+    border-bottom: none;
     border-radius: var(--radius-lg);
     background: var(--white);
     box-shadow: var(--shadow-sm);
@@ -519,11 +521,11 @@ summary:focus-visible {
     overflow: hidden;
 }
 
-.whatsapp-group[open] {
+.card-group[open] {
     box-shadow: var(--shadow-hover);
 }
 
-.whatsapp-group summary.link-card {
+.card-group summary.link-card {
     margin-bottom: 0;
     border-radius: var(--radius-lg);
     border-bottom-left-radius: 0;
@@ -532,21 +534,39 @@ summary:focus-visible {
     /* Ensure no default marker */
 }
 
-.whatsapp-group:not([open]) summary.link-card {
+.card-group:not([open]) summary.link-card {
     border-radius: var(--radius-lg);
     /* Rounded when closed */
 }
 
-.whatsapp-group summary::-webkit-details-marker {
+.card-group summary::-webkit-details-marker {
     display: none;
 }
 
 /* Rotate arrow when open */
-.whatsapp-group[open] summary .arrow-box {
-    transform: rotate(90deg);
+.card-group[open] summary .arrow-box {
+    transform: rotate(180deg);
 }
 
-.whatsapp-options {
+.card-group summary .arrow-box i {
+    display: block;
+}
+
+/* Sottovoce su due righe (titolo + dettaglio) */
+.sub-link .link-text {
+    font-weight: 500;
+    line-height: 1.35;
+}
+
+.sub-desc {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 400;
+    color: var(--text-medium);
+    margin-top: 0.15rem;
+}
+
+.card-group-options {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;

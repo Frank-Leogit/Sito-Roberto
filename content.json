@@ -60,11 +60,17 @@
       }
     ]
   },
-  "studio": {
+  "studi": {
     "visibile": true,
     "etichetta": "Dove trovarmi",
-    "indirizzo": "Via Alcide de Gasperi 165",
-    "citta": "Catania"
+    "sedi": [
+      {
+        "nome": "Studio Catania",
+        "indirizzo": "Via Alcide de Gasperi 165",
+        "citta": "Catania",
+        "note": ""
+      }
+    ]
   },
   "link": [
     {
@@ -79,7 +85,9 @@
       "etichetta": "Pubblicazioni Universitarie",
       "url": "https://sciprofiles.com/profile/Robertopalazzolo",
       "icona": "graduation-cap",
-      "suggerimento": "Vedi le pubblicazioni universitarie"
+      "suggerimento": "Vedi le pubblicazioni universitarie",
+      "etichetta_link": "Vedi tutte su SciProfiles",
+      "sottovoci": []
     },
     {
       "visibile": true,

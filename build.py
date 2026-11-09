@@ -64,9 +64,27 @@ def rich(text: str) -> str:
     return markdown.markdown(text)
 
 
+def maps(sede: dict) -> str:
+    """Link Google Maps per una sede."""
+    from urllib.parse import quote_plus
+    q = ", ".join(x for x in (sede.get("indirizzo"), sede.get("citta")) if x)
+    return "https://www.google.com/maps/search/?api=1&query=" + quote_plus(q)
+
+
+def normalize(c: dict) -> dict:
+    """Compatibilità con il vecchio formato (un solo 'studio')."""
+    if "studio" in c and "studi" not in c:
+        s = c.pop("studio")
+        c["studi"] = {"visibile": s.get("visibile", False),
+                      "etichetta": s.get("etichetta", "Dove trovarmi"),
+                      "sedi": [{k: s.get(k, "") for k in ("indirizzo", "citta")}]}
+    return c
+
+
 def build_jsonld(c: dict) -> str:
     profilo, contatti = c.get("profilo", {}), c.get("contatti", {})
-    studio = c.get("studio", {})
+    studi = c.get("studi", {})
+    sedi = [x for x in studi.get("sedi") or [] if x.get("indirizzo")] if studi.get("visibile") else []
     data = {
         "@context": "https://schema.org",
         "@type": "Physician",
@@ -82,16 +100,17 @@ def build_jsonld(c: dict) -> str:
         "address": {"@type": "PostalAddress", "addressCountry": "IT"},
         "sameAs": [u for u in c.get("social", {}).values() if u],
     }
-    if studio.get("visibile") and studio.get("indirizzo"):
-        data["address"].update(streetAddress=studio["indirizzo"],
-                               addressLocality=studio.get("citta", ""))
+    if sedi:
+        data["address"] = [{"@type": "PostalAddress", "addressCountry": "IT",
+                            "streetAddress": x["indirizzo"],
+                            "addressLocality": x.get("citta", "")} for x in sedi]
     data = {k: v for k, v in data.items() if v}
     # "</" non deve mai comparire dentro <script>
     return json.dumps(data, ensure_ascii=False, indent=2).replace("</", "<\\/")
 
 
 def main() -> None:
-    content = json.loads((ROOT / "content.json").read_text(encoding="utf-8"))
+    content = normalize(json.loads((ROOT / "content.json").read_text(encoding="utf-8")))
     today = dt.date.today()
 
     env = Environment(loader=FileSystemLoader(ROOT), autoescape=True,
@@ -99,6 +118,7 @@ def main() -> None:
                       trim_blocks=False)
     env.globals["img"] = img
     env.filters["rich"] = rich
+    env.globals["maps"] = maps
     html = env.get_template("template.html").render(
         **content,
         site_url=SITE_URL,

@@ -44,12 +44,14 @@
   "email": "robertopalazzolomed@gmail.com",
   "medicalSpecialty": "Endocrinology",
   "priceRange": "€€",
-  "address": {
-    "@type": "PostalAddress",
-    "addressCountry": "IT",
-    "streetAddress": "Via Alcide de Gasperi 165",
-    "addressLocality": "Catania"
-  },
+  "address": [
+    {
+      "@type": "PostalAddress",
+      "addressCountry": "IT",
+      "streetAddress": "Via Alcide de Gasperi 165",
+      "addressLocality": "Catania"
+    }
+  ],
   "sameAs": [
     "https://www.instagram.com/dott.robertopalazzolo"
   ]
@@ -63,7 +65,7 @@
     <!-- Icone Phosphor (versione fissata, solo stile regular) -->
     <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.2/src/regular/style.css">
 
-    <link rel="stylesheet" href="styles.css?v=f1877aa9">
+    <link rel="stylesheet" href="styles.css?v=0496cc20">
 </head>
 
 <body>
@@ -143,71 +145,58 @@ Mi occupo di: Diabete, Obesità, Tiroide, Andrologia, Sarcopenia, Ricomposizione
 
         <!-- Links Section -->
         <main class="links-container">
-            <details class="whatsapp-group">
+            <details class="card-group">
                 <summary class="link-card featured" title="Opzioni di prenotazione su WhatsApp">
                     <div class="icon-box"><i class="ph ph-whatsapp-logo" aria-hidden="true"></i></div>
                     <span class="link-text">Prenota su WhatsApp</span>
                     <div class="arrow-box"><i class="ph ph-caret-down" aria-hidden="true"></i></div>
                 </summary>
-                <div class="whatsapp-options">
-                    <a href="https://wa.me/393513156894?text=Salve%2C%20vorrei%20prenotare%20una%20visita." target="_blank"
-                        rel="noopener noreferrer" class="link-card sub-link" title="Visita Specialistica">
+                <div class="card-group-options">
+                    <a href="https://wa.me/393513156894?text=Salve%2C%20vorrei%20prenotare%20una%20visita." class="link-card sub-link" target="_blank" rel="noopener noreferrer">
                         <div class="icon-box"><i class="ph ph-stethoscope" aria-hidden="true"></i></div>
                         <span class="link-text">Visita Specialistica</span>
                         <div class="arrow-box"><i class="ph ph-caret-right" aria-hidden="true"></i></div>
                     </a>
-                    <a href="https://wa.me/393513156894?text=Salve%2C%20vorrei%20prenotare%20una%20ecografia." target="_blank"
-                        rel="noopener noreferrer" class="link-card sub-link" title="Ecografia">
+                    <a href="https://wa.me/393513156894?text=Salve%2C%20vorrei%20prenotare%20una%20ecografia." class="link-card sub-link" target="_blank" rel="noopener noreferrer">
                         <div class="icon-box"><i class="ph ph-waves" aria-hidden="true"></i></div>
                         <span class="link-text">Ecografia</span>
                         <div class="arrow-box"><i class="ph ph-caret-right" aria-hidden="true"></i></div>
                     </a>
-                    <a href="https://wa.me/393513156894?text=Salve%2C%20vorrei%20prenotare%20una%20consulenza%20online." target="_blank"
-                        rel="noopener noreferrer" class="link-card sub-link" title="Consulenza Online">
+                    <a href="https://wa.me/393513156894?text=Salve%2C%20vorrei%20prenotare%20una%20consulenza%20online." class="link-card sub-link" target="_blank" rel="noopener noreferrer">
                         <div class="icon-box"><i class="ph ph-video-camera" aria-hidden="true"></i></div>
                         <span class="link-text">Consulenza Online</span>
                         <div class="arrow-box"><i class="ph ph-caret-right" aria-hidden="true"></i></div>
                     </a>
-                    <a href="https://wa.me/393513156894?text=Salve%2C%20vorrei%20prenotare%20una%20visita%20domiciliare." target="_blank"
-                        rel="noopener noreferrer" class="link-card sub-link" title="Visita Domiciliare">
+                    <a href="https://wa.me/393513156894?text=Salve%2C%20vorrei%20prenotare%20una%20visita%20domiciliare." class="link-card sub-link" target="_blank" rel="noopener noreferrer">
                         <div class="icon-box"><i class="ph ph-house" aria-hidden="true"></i></div>
                         <span class="link-text">Visita Domiciliare</span>
                         <div class="arrow-box"><i class="ph ph-caret-right" aria-hidden="true"></i></div>
                     </a>
                 </div>
             </details>
-            <a href="https://www.google.com/maps/search/?api=1&query=Via%20Alcide%20de%20Gasperi%20165%2C%20Catania"
-                target="_blank" rel="noopener noreferrer" class="link-card"
-                title="Vedi la posizione dello studio su Google Maps">
+            <a href="https://www.google.com/maps/search/?api=1&amp;query=Via+Alcide+de+Gasperi+165%2C+Catania" target="_blank" rel="noopener noreferrer" class="link-card"
+                title="Via Alcide de Gasperi 165, Catania - apri in Google Maps">
                 <div class="icon-box"><i class="ph ph-map-pin" aria-hidden="true"></i></div>
                 <span class="link-text">Dove trovarmi</span>
                 <div class="arrow-box"><i class="ph ph-caret-right" aria-hidden="true"></i></div>
             </a>
             <a href="tel:+393513156894" class="link-card" title="Chiama lo studio del Dott. Palazzolo">
-                <div class="icon-box">
-                    <i class="ph ph-phone" aria-hidden="true"></i>
-                </div>
+                <div class="icon-box"><i class="ph ph-phone" aria-hidden="true"></i></div>
                 <span class="link-text">Chiama lo Studio</span>
                 <div class="arrow-box"><i class="ph ph-caret-right" aria-hidden="true"></i></div>
             </a>
             <a href="https://sciprofiles.com/profile/Robertopalazzolo" class="link-card" title="Vedi le pubblicazioni universitarie" target="_blank" rel="noopener noreferrer">
-                <div class="icon-box">
-                    <i class="ph ph-graduation-cap" aria-hidden="true"></i>
-                </div>
+                <div class="icon-box"><i class="ph ph-graduation-cap" aria-hidden="true"></i></div>
                 <span class="link-text">Pubblicazioni Universitarie</span>
                 <div class="arrow-box"><i class="ph ph-caret-right" aria-hidden="true"></i></div>
             </a>
             <a href="mailto:robertopalazzolomed@gmail.com" class="link-card" title="Invia una email al Dott. Palazzolo">
-                <div class="icon-box">
-                    <i class="ph ph-envelope-simple" aria-hidden="true"></i>
-                </div>
+                <div class="icon-box"><i class="ph ph-envelope-simple" aria-hidden="true"></i></div>
                 <span class="link-text">Invia una Email</span>
                 <div class="arrow-box"><i class="ph ph-caret-right" aria-hidden="true"></i></div>
             </a>
             <a href="https://www.google.com/search?hl=it&amp;q=Dr.+Roberto+Palazzolo+-+Medico+Chirurgo+-+Medico+in+formazione+specialistica+in+Endocrinologia+e+Malattie+del+Metabolismo+Recensioni" class="link-card" title="Leggi le recensioni su Google" target="_blank" rel="noopener noreferrer">
-                <div class="icon-box">
-                    <img src="https://www.google.com/favicon.ico" alt="" class="google-icon" width="20" height="20">
-                </div>
+                <div class="icon-box"><img src="https://www.google.com/favicon.ico" alt="" class="google-icon" width="20" height="20"></div>
                 <span class="link-text">Dicono di me</span>
                 <div class="arrow-box"><i class="ph ph-caret-right" aria-hidden="true"></i></div>
             </a>

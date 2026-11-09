@@ -51,6 +51,37 @@
 </head>
 
 <body>
+    {#- Card a tendina: summary = pulsante, contenuto = sottovoci -#}
+    {%- macro group_open(etichetta, icona, featured=false, titolo='') %}
+            <details class="card-group">
+                <summary class="link-card{% if featured %} featured{% endif %}" title="{{ titolo or etichetta }}">
+                    <div class="icon-box">{{ icon(icona) }}</div>
+                    <span class="link-text">{{ etichetta }}</span>
+                    <div class="arrow-box"><i class="ph ph-caret-down" aria-hidden="true"></i></div>
+                </summary>
+                <div class="card-group-options">
+    {%- endmacro %}
+    {%- macro group_close() %}
+                </div>
+            </details>
+    {%- endmacro %}
+    {%- macro sub_link(url, titolo, dettaglio='', icona='') %}
+                    <a href="{{ url }}" class="link-card sub-link"{% if url.startswith('http') %} target="_blank" rel="noopener noreferrer"{% endif %}>
+                        {%- if icona %}
+                        <div class="icon-box">{{ icon(icona) }}</div>
+                        {%- endif %}
+                        <span class="link-text">{{ titolo }}
+                            {%- if dettaglio %}<small class="sub-desc">{{ dettaglio }}</small>{% endif %}</span>
+                        <div class="arrow-box"><i class="ph ph-caret-right" aria-hidden="true"></i></div>
+                    </a>
+    {%- endmacro %}
+    {%- macro icon(nome) -%}
+        {%- if nome == 'google' -%}
+        <img src="https://www.google.com/favicon.ico" alt="" class="google-icon" width="20" height="20">
+        {%- else -%}
+        <i class="ph ph-{{ nome or 'link' }}" aria-hidden="true"></i>
+        {%- endif -%}
+    {%- endmacro %}
     <div class="container">
         <!-- Profile Section -->
         <header class="profile-section">
@@ -118,50 +149,51 @@
 
         <!-- Links Section -->
         <main class="links-container">
-            {%- if prenotazione_whatsapp.visibile %}
-            <details class="whatsapp-group">
-                <summary class="link-card featured" title="Opzioni di prenotazione su WhatsApp">
-                    <div class="icon-box"><i class="ph ph-whatsapp-logo" aria-hidden="true"></i></div>
-                    <span class="link-text">{{ prenotazione_whatsapp.titolo }}</span>
-                    <div class="arrow-box"><i class="ph ph-caret-down" aria-hidden="true"></i></div>
-                </summary>
-                <div class="whatsapp-options">
-                    {%- for o in prenotazione_whatsapp.opzioni %}
-                    <a href="https://wa.me/{{ contatti.whatsapp }}?text={{ o.messaggio | urlencode }}" target="_blank"
-                        rel="noopener noreferrer" class="link-card sub-link" title="{{ o.etichetta }}">
-                        <div class="icon-box"><i class="ph ph-{{ o.icona or 'calendar-check' }}" aria-hidden="true"></i></div>
-                        <span class="link-text">{{ o.etichetta }}</span>
-                        <div class="arrow-box"><i class="ph ph-caret-right" aria-hidden="true"></i></div>
-                    </a>
+            {%- if prenotazione_whatsapp.visibile and prenotazione_whatsapp.opzioni %}
+            {{- group_open(prenotazione_whatsapp.titolo, 'whatsapp-logo', true, 'Opzioni di prenotazione su WhatsApp') }}
+                    {%- for o in prenotazione_whatsapp.opzioni if o.etichetta %}
+                    {{- sub_link('https://wa.me/' ~ contatti.whatsapp ~ '?text=' ~ (o.messaggio or '') | urlencode, o.etichetta, '', o.icona or 'calendar-check') }}
                     {%- endfor %}
-                </div>
-            </details>
+            {{- group_close() }}
             {%- endif %}
 
-            {%- if studio.visibile and studio.indirizzo %}
-            <a href="https://www.google.com/maps/search/?api=1&query={{ (studio.indirizzo ~ ', ' ~ studio.citta) | urlencode }}"
-                target="_blank" rel="noopener noreferrer" class="link-card"
-                title="Vedi la posizione dello studio su Google Maps">
+            {#- Sedi: una sola -> pulsante diretto a Maps; più di una -> tendina #}
+            {%- set sedi = studi.sedi | selectattr('indirizzo') | list if studi.visibile and studi.sedi else [] %}
+            {%- if sedi | length == 1 %}
+            {%- set sd = sedi[0] %}
+            <a href="{{ maps(sd) }}" target="_blank" rel="noopener noreferrer" class="link-card"
+                title="{{ sd.indirizzo }}, {{ sd.citta }} - apri in Google Maps">
                 <div class="icon-box"><i class="ph ph-map-pin" aria-hidden="true"></i></div>
-                <span class="link-text">{{ studio.etichetta }}</span>
+                <span class="link-text">{{ studi.etichetta or 'Dove trovarmi' }}</span>
                 <div class="arrow-box"><i class="ph ph-caret-right" aria-hidden="true"></i></div>
             </a>
+            {%- elif sedi %}
+            {{- group_open(studi.etichetta or 'Dove trovarmi', 'map-pin') }}
+                    {%- for sd in sedi %}
+                    {{- sub_link(maps(sd), sd.nome or sd.citta, [sd.indirizzo ~ ', ' ~ sd.citta, sd.note] | select | join(' · ')) }}
+                    {%- endfor %}
+            {{- group_close() }}
             {%- endif %}
 
-            {%- for l in link if l.visibile and l.url %}
-            {%- set esterno = l.url.startswith('http') %}
-            <a href="{{ l.url }}" class="link-card" title="{{ l.suggerimento or l.etichetta }}"
-                {%- if esterno %} target="_blank" rel="noopener noreferrer"{% endif %}>
-                <div class="icon-box">
-                    {%- if l.icona == 'google' %}
-                    <img src="https://www.google.com/favicon.ico" alt="" class="google-icon" width="20" height="20">
-                    {%- else %}
-                    <i class="ph ph-{{ l.icona or 'link' }}" aria-hidden="true"></i>
+            {%- for l in link if l.visibile and l.etichetta and (l.url or l.sottovoci) %}
+            {%- set voci = (l.sottovoci or []) | selectattr('titolo') | list %}
+            {%- if voci %}
+            {{- group_open(l.etichetta, l.icona, false, l.suggerimento) }}
+                    {%- for v in voci %}
+                    {{- sub_link(v.url or l.url or '#', v.titolo, v.dettaglio) }}
+                    {%- endfor %}
+                    {%- if l.url %}
+                    {{- sub_link(l.url, l.etichetta_link or 'Vedi tutto', '', 'arrow-square-out') }}
                     {%- endif %}
-                </div>
+            {{- group_close() }}
+            {%- elif l.url %}
+            <a href="{{ l.url }}" class="link-card" title="{{ l.suggerimento or l.etichetta }}"
+                {%- if l.url.startswith('http') %} target="_blank" rel="noopener noreferrer"{% endif %}>
+                <div class="icon-box">{{ icon(l.icona) }}</div>
                 <span class="link-text">{{ l.etichetta }}</span>
                 <div class="arrow-box"><i class="ph ph-caret-right" aria-hidden="true"></i></div>
             </a>
+            {%- endif %}
             {%- endfor %}
 
             {%- set socials = [('instagram', 'Instagram', 'Segui ' ~ profilo.nome ~ ' su Instagram'),

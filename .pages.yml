@@ -81,14 +81,25 @@ content:
                 options:
                   values: [stethoscope, waves, video-camera, house, calendar-check]
 
-      - name: studio
-        label: Studio (pulsante "Dove trovarmi")
+      - name: studi
+        label: Sedi (pulsante "Dove trovarmi")
         type: object
         fields:
-          - { name: visibile, label: Mostra pulsante, type: boolean, default: false }
+          - { name: visibile, label: Mostra pulsante, type: boolean, default: true }
           - { name: etichetta, label: Testo del pulsante, type: string }
-          - { name: indirizzo, label: Indirizzo, type: string }
-          - { name: citta, label: Città, type: string }
+          - name: sedi
+            label: Sedi
+            description: "Con una sola sede il pulsante apre Google Maps; con più sedi diventa una tendina."
+            type: object
+            list:
+              collapsible:
+                collapsed: true
+                summary: "{nome}"
+            fields:
+              - { name: nome, label: "Nome (es. Studio Catania)", type: string }
+              - { name: indirizzo, label: Indirizzo, type: string }
+              - { name: citta, label: Città, type: string }
+              - { name: note, label: "Note (es. giorni/orari, facoltativo)", type: string }
 
       - name: link
         label: Pulsanti / link
@@ -110,6 +121,21 @@ content:
             options:
               values: [phone, envelope-simple, graduation-cap, google, map-pin, whatsapp-logo, calendar-check, link]
           - { name: suggerimento, label: "Testo al passaggio del mouse (facoltativo)", type: string }
+          - name: sottovoci
+            label: Sottovoci (facoltativo)
+            description: "Se compilate, il pulsante si apre a tendina con questo elenco (es. le singole pubblicazioni)."
+            type: object
+            list:
+              collapsible:
+                collapsed: true
+                summary: "{titolo}"
+            fields:
+              - { name: titolo, label: Titolo, type: string }
+              - { name: dettaglio, label: "Dettaglio (es. rivista, anno)", type: string }
+              - { name: url, label: "Link (es. DOI o PubMed)", type: string }
+          - name: etichetta_link
+            label: "Testo dell'ultima voce che apre il link principale (solo con sottovoci)"
+            type: string
 
       - name: social
         label: Social (lasciare vuoto per nascondere)
