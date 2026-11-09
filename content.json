@@ -35,7 +35,7 @@
     }
   ],
   "prenotazione_whatsapp": {
-    "visibile": false,
+    "visibile": true,
     "titolo": "Prenota su WhatsApp",
     "opzioni": [
       {
