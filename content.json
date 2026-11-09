@@ -24,12 +24,12 @@
   },
   "sezioni_extra": [
     {
-      "visibile": false,
+      "visibile": true,
       "titolo": "I miei Servizi",
       "testo": "Offro un ventaglio completo di prestazioni mediche per la diagnosi, il trattamento e il monitoraggio delle principali patologie endocrino-metaboliche. Ogni visita include un'anamnesi dettagliata e una valutazione clinica accurata.\n\n- **Diabete Mellito (Tipo 1, Tipo 2 e Gestazionale):** Gestione, installazione e modifica dei parametri dei microinfusori per il diabete tipo 1. Terapie farmacologiche innovative e obiettivo della de-insulinizzazione per il diabete tipo 2. Trattamento e monitoraggio del diabete gestazionale.\n- **Patologie della Tiroide:** Diagnosi e cura di ipotiroidismo, ipertiroidismo, tiroiditi autoimmuni (Hashimoto, Morbo di Graves), e gestione dei noduli tiroidei con Ecografia della tiroide. Trattamento e gestione dell'ipotiroidismo subclinico e ipertiroidismo subclinico.\n- **Obesità e Sindrome Metabolica:** Percorsi strutturati di calo ponderale che integrano nutrizione, supporto farmacologico e piano personalizzato di attività fisica. Insulino-resistenza ed obesità sono patologie croniche multifattoriali che richiedono un approccio a 360°, che solo un approccio olistico può risolvere sul lungo termine.\n- **Ricomposizione corporea:** dimagrire non è solo perdere peso, il dimagrimento per essere salutare deve portare ad una perdita di massa grassa e conservazione di quanta più possibile massa muscolare. Con il giusto approccio, è possibile minimizzare la perdita di massa magra, favorendo la ricomposizione corporea.\n- **Visita Andrologica e trattamento di:** Trattamento di: disfunzione erettile, calo della libido, ipogonadismo, infertilità maschile, valutazione ed interpretazione spermiogramma, problemi delle basse vie urinarie (LUTS), ipertrofia prostatica benigna, prostatite cronica, dolore pelvico maschile, algie scrotali. Diagnosi ed inquadramento del varicocele. TRT. Terapia Ormonale Sostitutiva. \n- **Ecografia testicolare ed Ecocolor Doppler del Plesso Pampiniforme (diagnosi varicocecle)**\n- **Disturbi Ormonali Femminili:** Trattamento della sindrome dell'ovaio policistico (PCOS). Irregolarità mestruali. Menopausa. Ipogonadismo e disturbi della sfera sessuale. Desiderio sessuale ipoattivo. Iperandrogenismo. Irsutismo. Ipertricosi. Terapia Ormonale Sostitutiva. \n- **Osteoporosi e Metabolismo Osseo:** Valutazione del rischio di frattura e terapie per rafforzare la densità ossea, prevenendo o curando l'osteoporosi e l'osteopenia.\n- **Endocrinologia generale:** adenomi ipofisari; Prolattinomi; valutazione del deficit di crescita nel bambino; ipercortisolismo o Cushing, valutazione adenoma surrenalico, ipocortisolismo o Addison, panipopituitarismo.\n\n"
     },
     {
-      "visibile": false,
+      "visibile": true,
       "titolo": "Perché una visita Endocrinologica?",
       "testo": "Il sistema endocrino regola funzioni vitali come il metabolismo, la crescita, la riproduzione e l'umore. Spesso sintomi come stanchezza cronica, variazioni di peso inspiegabili, alterazioni del ciclo o disturbi del sonno possono nascondere uno squilibrio ormonale.\n\nRivolgersi a uno specialista permette di indagare le cause profonde di questi disturbi. Non sottovalutare i segnali del tuo corpo: una diagnosi precoce è fondamentale per prevenire complicanze a lungo termine e migliorare significativamente la qualità della vita. Prenotare una visita è il primo passo verso il benessere consapevole."
     }
@@ -61,7 +61,7 @@
     ]
   },
   "studio": {
-    "visibile": false,
+    "visibile": true,
     "etichetta": "Dove trovarmi",
     "indirizzo": "Via Alcide de Gasperi 165",
     "citta": "Catania"
