@@ -1,6 +1,8 @@
 {
-  "name": "MyWebSite",
-  "short_name": "MySite",
+  "name": "Dott. Roberto Palazzolo - Endocrinologia",
+  "short_name": "Dott. Palazzolo",
+  "start_url": "/",
+  "lang": "it",
   "icons": [
     {
       "src": "/web-app-manifest-192x192.png",
@@ -15,7 +17,7 @@
       "purpose": "maskable"
     }
   ],
-  "theme_color": "#ffffff",
-  "background_color": "#ffffff",
+  "theme_color": "#006d77",
+  "background_color": "#edf6f9",
   "display": "standalone"
 }

@@ -1,0 +1,136 @@
+# Configurazione dell'editor Pages CMS (https://app.pagescms.org)
+# Roberto modifica solo content.json; la GitHub Action rigenera il sito.
+
+media:
+  input: src
+  output: /src
+  extensions: [jpg, jpeg, png, webp]
+
+content:
+  - name: sito
+    label: Contenuti del sito
+    type: file
+    path: content.json
+    format: json
+    fields:
+      - name: profilo
+        label: Profilo (intestazione)
+        type: object
+        fields:
+          - { name: nome, label: Nome, type: string, required: true }
+          - { name: titolo, label: Specializzazione, type: string }
+          - { name: bio, label: Breve descrizione, type: text }
+          - { name: foto, label: Foto profilo (quadrata), type: image }
+          - { name: logo, label: Logo, type: image }
+
+      - name: contatti
+        label: Contatti
+        type: object
+        fields:
+          - { name: telefono, label: "Telefono (formato +39...)", type: string }
+          - { name: email, label: Email, type: string }
+          - { name: whatsapp, label: "Numero WhatsApp (solo cifre, es. 393...)", type: string }
+
+      - name: chi_sono
+        label: Sezione "Chi sono"
+        type: object
+        fields:
+          - { name: visibile, label: Mostra sezione, type: boolean, default: true }
+          - { name: titolo, label: Titolo, type: string }
+          - { name: testo, label: Testo, type: rich-text }
+          - name: powerlifting
+            label: Sottosezione Powerlifting
+            type: object
+            fields:
+              - { name: visibile, label: Mostra sottosezione, type: boolean, default: true }
+              - { name: titolo, label: Titolo, type: string }
+              - { name: testo, label: Testo, type: rich-text }
+              - { name: immagine, label: Immagine, type: image }
+
+      - name: sezioni_extra
+        label: Altre sezioni a tendina (Servizi, ecc.)
+        type: object
+        list:
+          collapsible:
+            collapsed: true
+            summary: "{titolo}"
+        fields:
+          - { name: visibile, label: Mostra sezione, type: boolean, default: true }
+          - { name: titolo, label: Titolo, type: string }
+          - { name: testo, label: Testo, type: rich-text }
+
+      - name: prenotazione_whatsapp
+        label: Pulsante "Prenota su WhatsApp"
+        type: object
+        fields:
+          - { name: visibile, label: Mostra pulsante, type: boolean, default: false }
+          - { name: titolo, label: Testo del pulsante, type: string }
+          - name: opzioni
+            label: Opzioni di prenotazione
+            type: object
+            list:
+              collapsible:
+                collapsed: true
+                summary: "{etichetta}"
+            fields:
+              - { name: etichetta, label: Etichetta, type: string }
+              - { name: messaggio, label: Messaggio precompilato WhatsApp, type: string }
+              - name: icona
+                label: Icona
+                type: select
+                options:
+                  values: [stethoscope, waves, video-camera, house, calendar-check]
+
+      - name: studio
+        label: Studio (pulsante "Dove trovarmi")
+        type: object
+        fields:
+          - { name: visibile, label: Mostra pulsante, type: boolean, default: false }
+          - { name: etichetta, label: Testo del pulsante, type: string }
+          - { name: indirizzo, label: Indirizzo, type: string }
+          - { name: citta, label: Città, type: string }
+
+      - name: link
+        label: Pulsanti / link
+        type: object
+        list:
+          collapsible:
+            collapsed: true
+            summary: "{etichetta}"
+        fields:
+          - { name: visibile, label: Mostra, type: boolean, default: true }
+          - { name: etichetta, label: Testo del pulsante, type: string }
+          - name: url
+            label: Link
+            type: string
+            description: "Sito: https://...  Telefono: tel:+39...  Email: mailto:indirizzo@..."
+          - name: icona
+            label: Icona
+            type: select
+            options:
+              values: [phone, envelope-simple, graduation-cap, google, map-pin, whatsapp-logo, calendar-check, link]
+          - { name: suggerimento, label: "Testo al passaggio del mouse (facoltativo)", type: string }
+
+      - name: social
+        label: Social (lasciare vuoto per nascondere)
+        type: object
+        fields:
+          - { name: instagram, label: Instagram, type: string }
+          - { name: facebook, label: Facebook, type: string }
+          - { name: linkedin, label: LinkedIn, type: string }
+
+      - name: footer
+        label: Piè di pagina
+        type: object
+        fields:
+          - { name: testo, label: "Testo dopo © anno", type: string }
+
+      - name: seo
+        label: SEO e anteprime (Google / WhatsApp)
+        type: object
+        fields:
+          - { name: titolo_pagina, label: Titolo della pagina, type: string }
+          - { name: descrizione, label: Descrizione per Google, type: text }
+          - { name: descrizione_social, label: Descrizione anteprima WhatsApp/Facebook, type: text }
+          - { name: parole_chiave, label: Parole chiave, type: string }
+          - { name: descrizione_scheda_medico, label: Descrizione scheda medico (dati strutturati), type: text }

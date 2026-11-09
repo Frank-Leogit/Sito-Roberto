@@ -64,9 +64,10 @@ body {
     right: 100%;
     top: 50%;
     transform: translateY(-50%);
-    height: 100px;
+    /* si riduce su schermi stretti per non uscire dal bordo */
+    height: clamp(56px, 18vw, 100px);
     width: auto;
-    margin-right: 2rem;
+    margin-right: clamp(0.75rem, 4vw, 2rem);
     filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.05));
     transition: var(--transition);
 }
@@ -487,6 +488,24 @@ details:last-child {
     width: 20px;
     height: 20px;
     object-fit: contain;
+}
+
+/* Accessibilità: focus visibile da tastiera */
+a:focus-visible,
+summary:focus-visible {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 3px;
+    border-radius: var(--radius-lg);
+}
+
+/* Rispetta chi ha disattivato le animazioni nel sistema */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation: none !important;
+        transition: none !important;
+    }
 }
 
 /* WhatsApp Group Accordion */

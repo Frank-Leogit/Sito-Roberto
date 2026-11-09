@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+{#- ============================================================
+    TEMPLATE del sito. NON modificare index.html a mano:
+    viene rigenerato da build.py a partire da content.json.
+    ============================================================ -#}
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ seo.titolo_pagina }}</title>
+    <meta name="description" content="{{ seo.descrizione }}">
+    <meta name="keywords" content="{{ seo.parole_chiave }}">
+    <meta name="author" content="{{ profilo.nome }}">
+    <meta name="theme-color" content="#006d77">
+    <link rel="canonical" href="{{ site_url }}/">
+
+    <!-- Open Graph / Facebook / WhatsApp Preview -->
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="it_IT">
+    <meta property="og:site_name" content="{{ profilo.nome }}">
+    <meta property="og:url" content="{{ site_url }}/">
+    <meta property="og:title" content="{{ seo.titolo_pagina }}">
+    <meta property="og:description" content="{{ seo.descrizione_social }}">
+    <meta property="og:image" content="{{ site_url }}{{ profilo.logo }}">
+
+    <!-- Twitter / X -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="{{ seo.titolo_pagina }}">
+    <meta name="twitter:description" content="{{ seo.descrizione_social }}">
+    <meta name="twitter:image" content="{{ site_url }}{{ profilo.logo }}">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
+
+    <!-- Structured Data (JSON-LD) for SEO -->
+    <script type="application/ld+json">{{ jsonld | safe }}</script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Icone Phosphor (versione fissata, solo stile regular) -->
+    <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.2/src/regular/style.css">
+
+    <link rel="stylesheet" href="styles.css?v={{ css_version }}">
+</head>
+
+<body>
+    <div class="container">
+        <!-- Profile Section -->
+        <header class="profile-section">
+            <div class="profile-visuals">
+                <img src="{{ img(profilo.logo, 200) }}" alt="Logo {{ profilo.nome }}" class="branding-logo"
+                    width="200" height="200">
+                <div class="profile-image-container">
+                    <img src="{{ img(profilo.foto, 240) }}" alt="Foto di {{ profilo.nome }}" class="profile-image"
+                        width="240" height="240">
+                </div>
+            </div>
+            <h1 class="profile-name">{{ profilo.nome }}</h1>
+            <p class="profile-title">{{ profilo.titolo }}</p>
+            <p class="profile-bio">{{ profilo.bio }}</p>
+        </header>
+
+        {%- set sezioni = (sezioni_extra | selectattr('visibile') | list) %}
+        {%- if chi_sono.visibile or sezioni %}
+
+        <section class="info-section">
+            {%- if chi_sono.visibile %}
+            <details>
+                <summary>
+                    <h2>{{ chi_sono.titolo }}</h2>
+                    <i class="ph ph-caret-down arrow-icon" aria-hidden="true"></i>
+                </summary>
+                <div class="details-content">
+                    {{ chi_sono.testo | rich | safe }}
+
+                    {%- if chi_sono.powerlifting.visibile %}
+                    <details class="nested-details">
+                        <summary>
+                            <h3>{{ chi_sono.powerlifting.titolo }}</h3>
+                            <i class="ph ph-caret-down arrow-icon" aria-hidden="true"></i>
+                        </summary>
+                        <div class="details-content">
+                            <div class="powerlifting-content">
+                                {%- if chi_sono.powerlifting.immagine %}
+                                <img src="{{ img(chi_sono.powerlifting.immagine, 600) }}"
+                                    alt="{{ profilo.nome }} - {{ chi_sono.powerlifting.titolo }}"
+                                    class="powerlifting-image" loading="lazy" decoding="async">
+                                {%- endif %}
+                                {{ chi_sono.powerlifting.testo | rich | safe }}
+                            </div>
+                        </div>
+                    </details>
+                    {%- endif %}
+                </div>
+            </details>
+            {%- endif %}
+
+            {%- for s in sezioni %}
+            <details>
+                <summary>
+                    <h2>{{ s.titolo }}</h2>
+                    <i class="ph ph-caret-down arrow-icon" aria-hidden="true"></i>
+                </summary>
+                <div class="details-content">
+                    {{ s.testo | rich | safe }}
+                </div>
+            </details>
+            {%- endfor %}
+        </section>
+        {%- endif %}
+
+        <!-- Links Section -->
+        <main class="links-container">
+            {%- if prenotazione_whatsapp.visibile %}
+            <details class="whatsapp-group">
+                <summary class="link-card featured" title="Opzioni di prenotazione su WhatsApp">
+                    <div class="icon-box"><i class="ph ph-whatsapp-logo" aria-hidden="true"></i></div>
+                    <span class="link-text">{{ prenotazione_whatsapp.titolo }}</span>
+                    <div class="arrow-box"><i class="ph ph-caret-down" aria-hidden="true"></i></div>
+                </summary>
+                <div class="whatsapp-options">
+                    {%- for o in prenotazione_whatsapp.opzioni %}
+                    <a href="https://wa.me/{{ contatti.whatsapp }}?text={{ o.messaggio | urlencode }}" target="_blank"
+                        rel="noopener noreferrer" class="link-card sub-link" title="{{ o.etichetta }}">
+                        <div class="icon-box"><i class="ph ph-{{ o.icona or 'calendar-check' }}" aria-hidden="true"></i></div>
+                        <span class="link-text">{{ o.etichetta }}</span>
+                        <div class="arrow-box"><i class="ph ph-caret-right" aria-hidden="true"></i></div>
+                    </a>
+                    {%- endfor %}
+                </div>
+            </details>
+            {%- endif %}
+
+            {%- if studio.visibile and studio.indirizzo %}
+            <a href="https://www.google.com/maps/search/?api=1&query={{ (studio.indirizzo ~ ', ' ~ studio.citta) | urlencode }}"
+                target="_blank" rel="noopener noreferrer" class="link-card"
+                title="Vedi la posizione dello studio su Google Maps">
+                <div class="icon-box"><i class="ph ph-map-pin" aria-hidden="true"></i></div>
+                <span class="link-text">{{ studio.etichetta }}</span>
+                <div class="arrow-box"><i class="ph ph-caret-right" aria-hidden="true"></i></div>
+            </a>
+            {%- endif %}
+
+            {%- for l in link if l.visibile and l.url %}
+            {%- set esterno = l.url.startswith('http') %}
+            <a href="{{ l.url }}" class="link-card" title="{{ l.suggerimento or l.etichetta }}"
+                {%- if esterno %} target="_blank" rel="noopener noreferrer"{% endif %}>
+                <div class="icon-box">
+                    {%- if l.icona == 'google' %}
+                    <img src="https://www.google.com/favicon.ico" alt="" class="google-icon" width="20" height="20">
+                    {%- else %}
+                    <i class="ph ph-{{ l.icona or 'link' }}" aria-hidden="true"></i>
+                    {%- endif %}
+                </div>
+                <span class="link-text">{{ l.etichetta }}</span>
+                <div class="arrow-box"><i class="ph ph-caret-right" aria-hidden="true"></i></div>
+            </a>
+            {%- endfor %}
+
+            {%- set socials = [('instagram', 'Instagram', 'Segui ' ~ profilo.nome ~ ' su Instagram'),
+                               ('facebook', 'Facebook', 'Visita la pagina Facebook'),
+                               ('linkedin', 'LinkedIn', 'Profilo LinkedIn')] %}
+            {%- if social.instagram or social.facebook or social.linkedin %}
+            <div class="social-row">
+                {%- for key, nome, titolo in socials if social[key] %}
+                <a href="{{ social[key] }}" class="social-icon" target="_blank" rel="noopener noreferrer"
+                    aria-label="{{ nome }}" title="{{ titolo }}"><i class="ph ph-{{ key }}-logo" aria-hidden="true"></i></a>
+                {%- endfor %}
+            </div>
+            {%- endif %}
+        </main>
+
+        <footer class="footer">
+            <p>&copy; <span id="anno">{{ anno }}</span> {{ footer.testo }}</p>
+        </footer>
+    </div>
+    <script>document.getElementById('anno').textContent = new Date().getFullYear();</script>
+</body>
+
+</html>
